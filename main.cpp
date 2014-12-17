@@ -1,8 +1,6 @@
 #include <boost/asio.hpp>
 #include <boost/asio/spawn.hpp>
 
-#include <memory>
-
 int main() {
 	using error_code = boost::system::error_code;
 	using context    = boost::asio::yield_context;

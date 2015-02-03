@@ -1,5 +1,8 @@
+
 #include <boost/asio.hpp>
 #include <boost/asio/spawn.hpp>
+
+#include <iostream>
 
 int main() {
 	using error_code = boost::system::error_code;

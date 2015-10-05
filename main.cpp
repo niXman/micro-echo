@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+// g++ -std=c++14 main.cpp -omain -lboost_system -lboost_context -lboost_coroutine -pthread
+
 int main() {
 	using error_code = boost::system::error_code;
 	using context    = boost::asio::yield_context;
@@ -23,9 +25,16 @@ int main() {
 				socket sock(ios);
 				strand str(ios);
 				acc.async_accept(sock, y[ec]);
+
+				if ( ec ) continue;
+
+				std::cout << "new connection from "
+					<< sock.remote_endpoint().address().to_string()
+				<< std::endl;
+
 				boost::asio::spawn(
 					 str
-					,[so=std::move(sock), st=std::move(str)](context y) mutable {
+					,[so=std::move(sock)/*, st=std::move(str)*/](context y) mutable {
 						while ( 1 ) try {
 							char buf[1024];
 							auto n = so.async_read_some(boost::asio::buffer(buf), y);

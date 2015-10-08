@@ -34,7 +34,7 @@ int main() {
 
 				boost::asio::spawn(
 					 str
-					,[so=std::move(sock)/*, st=std::move(str)*/](context y) mutable {
+					,[so=std::move(sock), st=std::move(str)](context y) mutable {
 						while ( 1 ) try {
 							char buf[1024];
 							auto n = so.async_read_some(boost::asio::buffer(buf), y);
